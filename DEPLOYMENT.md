@@ -63,11 +63,12 @@ This guide will walk you through deploying the Beyond app to Render's free tier.
 In your web service settings, go to **"Environment"** tab and add:
 
 1. **SECRET_KEY**:
-   - Generate a secure secret key:
+   - **Run this command on YOUR LOCAL COMPUTER** (in Terminal), NOT on Render:
      ```bash
-     python -c "import secrets; print(secrets.token_hex(32))"
+     python3 -c "import secrets; print(secrets.token_hex(32))"
      ```
-   - Copy the output and paste it as the value for `SECRET_KEY`
+   - Copy the output (a long random string) and paste it as the value for `SECRET_KEY` in Render
+   - **OR** use this pre-generated one: `16db08175609da7ae2292526ae1fc94b9f1e401869910ec5392f71afe5db9044`
    - This is critical for session security and CSRF protection
 
 2. **DATABASE_URL**:

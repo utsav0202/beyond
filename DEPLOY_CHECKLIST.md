@@ -66,11 +66,35 @@ git push -u origin main
    - **Start Command**: (leave empty - Procfile handles this)
    - **Plan**: **Free**
 4. **Environment Variables** (click "Advanced" → "Add Environment Variable"):
-   - **SECRET_KEY**: Generate with:
-     ```bash
-     python -c "import secrets; print(secrets.token_hex(32))"
-     ```
-   - **DATABASE_URL**: Copy from your PostgreSQL service's "Internal Database URL"
+   
+   **IMPORTANT**: Run the Python command on YOUR LOCAL MACHINE (in Terminal), NOT on Render!
+   
+   **Step 4a - Generate SECRET_KEY (Run this locally):**
+   ```bash
+   # Open Terminal on your Mac and run:
+   cd /Users/utsav/git/beyond
+   python3 -c "import secrets; print(secrets.token_hex(32))"
+   ```
+   Copy the output (it will be a long random string like: `16db08175609da7ae2292526ae1fc94b...`)
+   
+   **OR use this pre-generated one:**
+   ```
+   16db08175609da7ae2292526ae1fc94b9f1e401869910ec5392f71afe5db9044
+   ```
+   
+   **Step 4b - Add to Render:**
+   - In Render's "Environment Variables" section, click "Add Environment Variable"
+   - **Key**: `SECRET_KEY`
+   - **Value**: Paste the generated key (without the `SECRET_KEY=` prefix, just the value)
+   - Click "Save"
+   
+   **Step 4c - Add DATABASE_URL:**
+   - Go to your PostgreSQL service dashboard
+   - Copy the **Internal Database URL** (starts with `postgresql://`)
+   - Back in Web Service → Environment Variables
+   - **Key**: `DATABASE_URL`
+   - **Value**: Paste the Internal Database URL
+   - Click "Save"
 5. Click **"Create Web Service"**
 
 ### 3.4 Wait for Deployment
