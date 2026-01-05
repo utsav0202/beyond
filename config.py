@@ -16,7 +16,10 @@ class Config:
         # PostgreSQL database (production on Render)
         # Handle postgres:// URLs which need to be converted to postgresql://
         if database_url.startswith('postgres://'):
-            database_url = database_url.replace('postgres://', 'postgresql://', 1)
+            database_url = database_url.replace('postgres://', 'postgresql+psycopg://', 1)
+        elif database_url.startswith('postgresql://'):
+            # Use psycopg3 dialect explicitly for Python 3.13 compatibility
+            database_url = database_url.replace('postgresql://', 'postgresql+psycopg://', 1)
         SQLALCHEMY_DATABASE_URI = database_url
     else:
         # SQLite database (local development)
