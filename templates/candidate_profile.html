@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+{% block title %}{{ candidate.full_name }} - Beyond{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <!-- Candidate Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Candidate Profile</li>
+                </ol>
+            </nav>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h2 class="mb-2">{{ candidate.full_name }}</h2>
+                            <p class="mb-1">
+                                <i class="bi bi-envelope"></i> 
+                                <a href="mailto:{{ candidate.email }}">{{ candidate.email }}</a>
+                            </p>
+                            {% if candidate.phone %}
+                                <p class="mb-1">
+                                    <i class="bi bi-telephone"></i> {{ candidate.phone }}
+                                </p>
+                            {% endif %}
+                            <p class="text-muted mb-0">
+                                <small>
+                                    <i class="bi bi-calendar-plus"></i> 
+                                    Profile created: {{ candidate.created_at.strftime('%B %d, %Y') }}
+                                </small>
+                            </p>
+                        </div>
+                        <div class="col-md-4 text-md-end">
+                            <div class="mb-2">
+                                <span class="rating-stars" style="font-size: 1.5rem;">{{ avg_rating | star_rating }}</span>
+                                <br>
+                                <strong class="text-primary">{{ "%.1f"|format(avg_rating) }}/5.0</strong>
+                            </div>
+                            <p class="mb-0">
+                                <span class="badge bg-primary">{{ feedback_count }} Review{{ 's' if feedback_count != 1 else '' }}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Skills Summary -->
+    {% if all_expertise %}
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0"><i class="bi bi-gear-fill"></i> Skills & Expertise</h5>
+                    </div>
+                    <div class="card-body">
+                        {% for skill in all_expertise %}
+                            <span class="badge expertise-badge">{{ skill }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- Feedback Entries -->
+    <div class="row">
+        <div class="col-12">
+            <h3 class="mb-3">Employer Feedback ({{ feedback_count }})</h3>
+
+            {% if feedbacks %}
+                {% for feedback in feedbacks %}
+                    <div class="feedback-card card mb-3">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div>
+                                    <h5 class="company-name mb-1">
+                                        <i class="bi bi-building"></i> {{ feedback.employer.company_name }}
+                                    </h5>
+                                    <p class="role-title mb-0">{{ feedback.role }}</p>
+                                </div>
+                                <div class="text-end">
+                                    <span class="rating-stars">{{ feedback.rating | star_rating }}</span>
+                                    <br>
+                                    <small class="text-muted">{{ feedback.rating }}/5</small>
+                                </div>
+                            </div>
+
+                            {% if feedback.employment_start or feedback.employment_end %}
+                                <p class="text-muted mb-2">
+                                    <i class="bi bi-calendar-range"></i>
+                                    <strong>Employment Period:</strong>
+                                    {{ format_date(feedback.employment_start) }} - {{ format_date(feedback.employment_end) }}
+                                    {% if feedback.get_employment_duration() %}
+                                        ({{ feedback.get_employment_duration() }} months)
+                                    {% endif %}
+                                </p>
+                            {% endif %}
+
+                            {% if feedback.expertise %}
+                                <p class="mb-2">
+                                    <i class="bi bi-tools"></i>
+                                    <strong>Skills:</strong>
+                                    {% for skill in feedback.get_expertise_list() %}
+                                        <span class="badge expertise-badge">{{ skill }}</span>
+                                    {% endfor %}
+                                </p>
+                            {% endif %}
+
+                            <div class="mt-3">
+                                <strong><i class="bi bi-chat-left-quote"></i> Feedback:</strong>
+                                <p class="mt-2 mb-0">{{ feedback.feedback_text }}</p>
+                            </div>
+
+                            <div class="mt-3 pt-3 border-top">
+                                <small class="text-muted">
+                                    <i class="bi bi-clock"></i> 
+                                    Added {{ feedback.created_at.strftime('%B %d, %Y') }}
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="empty-state">
+                    <i class="bi bi-inbox"></i>
+                    <p>No feedback available for this candidate yet.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+

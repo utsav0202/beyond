@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Beyond{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <!-- Welcome Section -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1 class="mb-2">Welcome, {{ current_user.username }}!</h1>
+            <p class="text-muted">{{ current_user.company_name }}</p>
+        </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="row g-4 mb-5">
+        <div class="col-md-6">
+            <div class="stat-card">
+                <h3>{{ total_candidates }}</h3>
+                <p class="mb-0"><i class="bi bi-people"></i> Total Candidates in System</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="stat-card">
+                <h3>{{ my_feedback_count }}</h3>
+                <p class="mb-0"><i class="bi bi-chat-left-text"></i> Your Feedback Entries</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <h3 class="mb-3">Quick Actions</h3>
+        </div>
+        <div class="col-md-6 mb-3">
+            <a href="{{ url_for('add_feedback') }}" class="text-decoration-none">
+                <div class="card h-100 border-primary">
+                    <div class="card-body text-center py-4">
+                        <i class="bi bi-plus-circle-fill text-primary" style="font-size: 3rem;"></i>
+                        <h5 class="mt-3 mb-2">Add Employee Feedback</h5>
+                        <p class="text-muted mb-0">Submit feedback for a past employee</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-6 mb-3">
+            <a href="{{ url_for('search') }}" class="text-decoration-none">
+                <div class="card h-100 border-primary">
+                    <div class="card-body text-center py-4">
+                        <i class="bi bi-search text-primary" style="font-size: 3rem;"></i>
+                        <h5 class="mt-3 mb-2">Search Candidates</h5>
+                        <p class="text-muted mb-0">Find candidates by role and skills</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="row">
+        <div class="col-12">
+            <h3 class="mb-3">Your Recent Feedback</h3>
+            {% if recent_feedback %}
+                <div class="card">
+                    <div class="card-body">
+                        <div class="list-group list-group-flush">
+                            {% for feedback in recent_feedback %}
+                                <div class="list-group-item px-0">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div class="flex-grow-1">
+                                            <h6 class="mb-1">
+                                                <a href="{{ url_for('candidate_profile', candidate_id=feedback.candidate_id) }}">
+                                                    {{ feedback.candidate.full_name }}
+                                                </a>
+                                            </h6>
+                                            <p class="mb-1 text-muted">
+                                                <strong>{{ feedback.role }}</strong>
+                                            </p>
+                                            <small class="text-muted">
+                                                <i class="bi bi-calendar"></i> {{ feedback.created_at.strftime('%B %d, %Y') }}
+                                            </small>
+                                        </div>
+                                        <div class="text-end">
+                                            <span class="rating-stars">{{ feedback.rating | star_rating }}</span>
+                                            <br>
+                                            <small class="text-muted">{{ feedback.rating }}/5</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <i class="bi bi-inbox"></i>
+                    <p>You haven't added any feedback yet.</p>
+                    <a href="{{ url_for('add_feedback') }}" class="btn btn-primary">
+                        Add Your First Feedback
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+

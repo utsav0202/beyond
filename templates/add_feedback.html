@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+
+{% block title %}Add Feedback - Beyond{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="mb-0"><i class="bi bi-plus-circle"></i> Add Employee Feedback</h4>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted mb-4">
+                        Submit feedback for a past employee. If the candidate profile already exists, 
+                        your feedback will be added to their history.
+                    </p>
+
+                    <form method="POST" novalidate>
+                        {{ form.hidden_tag() }}
+
+                        <!-- Candidate Information -->
+                        <h5 class="mb-3 border-bottom pb-2">Candidate Information</h5>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ form.candidate_email.label(class="form-label") }}
+                                {{ form.candidate_email(class="form-control" + (" is-invalid" if form.candidate_email.errors else "")) }}
+                                {% if form.candidate_email.errors %}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.candidate_email.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                <small class="text-muted">Used to identify or create candidate profile</small>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                {{ form.candidate_name.label(class="form-label") }}
+                                {{ form.candidate_name(class="form-control" + (" is-invalid" if form.candidate_name.errors else "")) }}
+                                {% if form.candidate_name.errors %}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.candidate_name.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.candidate_phone.label(class="form-label") }}
+                            {{ form.candidate_phone(class="form-control" + (" is-invalid" if form.candidate_phone.errors else "")) }}
+                            {% if form.candidate_phone.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.candidate_phone.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Employment Details -->
+                        <h5 class="mb-3 mt-4 border-bottom pb-2">Employment Details</h5>
+
+                        <div class="mb-3">
+                            {{ form.role.label(class="form-label") }}
+                            {{ form.role(class="form-control" + (" is-invalid" if form.role.errors else "")) }}
+                            {% if form.role.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.role.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.expertise.label(class="form-label") }}
+                            {{ form.expertise(class="form-control" + (" is-invalid" if form.expertise.errors else "")) }}
+                            {% if form.expertise.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.expertise.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            <small class="text-muted">Enter skills separated by commas</small>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ form.employment_start.label(class="form-label") }}
+                                {{ form.employment_start(class="form-control" + (" is-invalid" if form.employment_start.errors else "")) }}
+                                {% if form.employment_start.errors %}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.employment_start.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                {{ form.employment_end.label(class="form-label") }}
+                                {{ form.employment_end(class="form-control" + (" is-invalid" if form.employment_end.errors else "")) }}
+                                {% if form.employment_end.errors %}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.employment_end.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Feedback -->
+                        <h5 class="mb-3 mt-4 border-bottom pb-2">Your Feedback</h5>
+
+                        <div class="mb-3">
+                            {{ form.rating.label(class="form-label") }}
+                            {{ form.rating(class="form-select" + (" is-invalid" if form.rating.errors else "")) }}
+                            {% if form.rating.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.rating.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-4">
+                            {{ form.feedback_text.label(class="form-label") }}
+                            {{ form.feedback_text(class="form-control" + (" is-invalid" if form.feedback_text.errors else "")) }}
+                            {% if form.feedback_text.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.feedback_text.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            <small class="text-muted">Provide detailed feedback about their performance, work ethic, and contributions</small>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="{{ url_for('dashboard') }}" class="btn btn-outline-secondary">Cancel</a>
+                            {{ form.submit(class="btn btn-primary px-5") }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+
+{% block title %}Beyond - Reference Checks Reimagined{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="display-4 fw-bold mb-4">
+                    <i class="bi bi-arrow-up-right-circle-fill"></i> Beyond
+                </h1>
+                <p class="lead mb-4">Reference checks reimagined for modern hiring</p>
+                <p class="mb-4">
+                    A transparent platform where employers share genuine employment feedback,
+                    helping you make better hiring decisions with confidence.
+                </p>
+                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                    <a href="{{ url_for('register') }}" class="btn btn-light btn-lg px-4 gap-3">
+                        Get Started
+                    </a>
+                    <a href="{{ url_for('login') }}" class="btn btn-outline-light btn-lg px-4">
+                        Login
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Features Section -->
+<div class="container my-5">
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card h-100 text-center">
+                <div class="card-body">
+                    <div class="mb-3">
+                        <i class="bi bi-people-fill text-primary" style="font-size: 3rem;"></i>
+                    </div>
+                    <h5 class="card-title">Build Candidate Profiles</h5>
+                    <p class="card-text">
+                        Add detailed feedback about past employees. If a profile exists, 
+                        your feedback is added to their history, building a comprehensive reference.
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card h-100 text-center">
+                <div class="card-body">
+                    <div class="mb-3">
+                        <i class="bi bi-search text-primary" style="font-size: 3rem;"></i>
+                    </div>
+                    <h5 class="card-title">Smart Search</h5>
+                    <p class="card-text">
+                        Find the right candidates by role, skills, and minimum ratings.
+                        Make informed decisions based on real employer feedback.
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card h-100 text-center">
+                <div class="card-body">
+                    <div class="mb-3">
+                        <i class="bi bi-star-fill text-primary" style="font-size: 3rem;"></i>
+                    </div>
+                    <h5 class="card-title">Transparent Ratings</h5>
+                    <p class="card-text">
+                        View aggregate ratings and detailed feedback from multiple employers
+                        to understand a candidate's true capabilities and work history.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- How It Works -->
+<div class="container my-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <h2 class="text-center mb-4">How It Works</h2>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="d-flex">
+                        <div class="flex-shrink-0">
+                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" 
+                                 style="width: 50px; height: 50px; font-size: 1.5rem; font-weight: bold;">
+                                1
+                            </div>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h5>Register Your Company</h5>
+                            <p class="text-muted">Create an account with your company details and credentials.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="d-flex">
+                        <div class="flex-shrink-0">
+                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" 
+                                 style="width: 50px; height: 50px; font-size: 1.5rem; font-weight: bold;">
+                                2
+                            </div>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h5>Add Feedback</h5>
+                            <p class="text-muted">Submit detailed feedback for past employees including role, skills, and ratings.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="d-flex">
+                        <div class="flex-shrink-0">
+                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" 
+                                 style="width: 50px; height: 50px; font-size: 1.5rem; font-weight: bold;">
+                                3
+                            </div>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h5>Search Candidates</h5>
+                            <p class="text-muted">Find candidates matching your requirements with advanced filters.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="d-flex">
+                        <div class="flex-shrink-0">
+                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" 
+                                 style="width: 50px; height: 50px; font-size: 1.5rem; font-weight: bold;">
+                                4
+                            </div>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h5>Make Better Decisions</h5>
+                            <p class="text-muted">Access comprehensive profiles with feedback from multiple employers.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CTA Section -->
+<div class="container my-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card bg-primary text-white text-center">
+                <div class="card-body p-5">
+                    <h2 class="mb-3">Ready to Get Started?</h2>
+                    <p class="lead mb-4">
+                        Join Beyond today and transform your hiring process with transparent,
+                        reliable reference checks.
+                    </p>
+                    <a href="{{ url_for('register') }}" class="btn btn-light btn-lg">
+                        Create Your Account
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
